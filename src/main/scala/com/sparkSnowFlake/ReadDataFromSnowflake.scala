@@ -8,28 +8,26 @@ object ReadDataFromSnowflake extends App {
     .master("local[1]")
     .appName("SparkByExamples.com")
     .getOrCreate()
-
-  var sfOptions = Map(
+  var sfParameters = Map(
     "sfURL" -> "https://re54891.east-us-2.azure.snowflakecomputing.com/",
     "sfAccount" -> "re54891",
     "sfUser" -> "mouhamadkeita92",
     "sfPassword" -> "Ousmane92.",
-    "sfDatabase" -> "EMPLOYEE",
+    "sfDatabase" -> "PEOPLE",
     "sfSchema" -> "PUBLIC",
-    "sfRole" -> "SYSADMIN"
+    "sfRole" -> "ACCOUNTADMIN"
   )
 
-  val df: DataFrame = spark.read
+  val peopleDF: DataFrame = spark.read
     .format("snowflake")
-    .options(sfOptions)
-    .option("dbtable", "EMPLOYEE")
+    .options(sfParameters)
+    .option("dbtable", "PEOPLE")
     .load()
-  val df1: DataFrame = spark.read
+  val peopleDFFilter: DataFrame = spark.read
     .format("snowflake")
-    .options(sfOptions)
-    .option("query", "select department, sum(salary) as total_salary from EMPLOYEE group by department")
+    .options(sfParameters)
+    .option("query", "SELECT * FROM PEOPLE WHERE job = 'Developer'")
     .load()
-
-  df.show(false)
-  df1.show(false)
+  peopleDF.show(false)
+  peopleDFFilter.show(false)
 }

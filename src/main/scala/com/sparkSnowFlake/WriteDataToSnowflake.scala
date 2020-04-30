@@ -6,40 +6,31 @@ object WriteDataToSnowflake extends App {
 
   val spark = SparkSession.builder()
     .master("local[1]")
-    .appName("SparkByExamples.com")
+    .appName("SparkSnowflakeWrite")
     .getOrCreate()
-
   spark.sparkContext.setLogLevel("ERROR")
-
   import spark.implicits._
-
-  val simpleData = Seq(("James","Sales",3000),
-    ("Michael","Sales",4600),
-    ("Robert","Sales",4100),
-    ("Maria","Finance",3000),
-    ("Raman","Finance",3000),
-    ("Scott","Finance",3300),
-    ("Jen","Finance",3900),
-    ("Jeff","Marketing",3000),
-    ("Kumar","Marketing",2000)
-  )
-  val df = simpleData.toDF("name","department","salary")
-  df.show()
-
-  var sfOptions = Map(
+  var sfParameters = Map(
     "sfURL" -> "https://re54891.east-us-2.azure.snowflakecomputing.com/",
     "sfAccount" -> "re54891",
     "sfUser" -> "mouhamadkeita92",
     "sfPassword" -> "Ousmane92.",
-    "sfDatabase" -> "EMPLOYEE",
+    "sfDatabase" -> "PEOPLE",
     "sfSchema" -> "PUBLIC",
-    "sfRole" -> "SYSADMIN"
+    "sfRole" -> "ACCOUNTADMIN"
   )
 
-  df.write
+  val data = Seq(("Jorge",23,"Developer"),
+    ("Bob",28,"Developer"),
+    ("Bill",31,"Admin"),
+    ("John",40,"Project Manager")
+  )
+  val peopleDF = data.toDF("name","age","job")
+
+  peopleDF.write
     .format("snowflake")
-    .options(sfOptions)
-    .option("dbtable", "EMPLOYEE")
+    .options(sfParameters)
+    .option("dbtable", "PEOPLE")
     .mode(SaveMode.Overwrite)
     .save()
 
