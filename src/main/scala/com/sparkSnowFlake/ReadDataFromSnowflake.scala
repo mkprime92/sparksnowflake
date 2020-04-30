@@ -5,8 +5,8 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 object ReadDataFromSnowflake extends App {
 
   val spark = SparkSession.builder()
-    .master("local[1]")
-    .appName("SparkByExamples.com")
+    .master("local[*]")
+    .appName("SparkSnowflakeRead")
     .getOrCreate()
   var sfParameters = Map(
     "sfURL" -> "https://re54891.east-us-2.azure.snowflakecomputing.com/",
