@@ -12,7 +12,7 @@ object ReadDataFromSnowflake extends App {
     "sfURL" -> "https://re54891.east-us-2.azure.snowflakecomputing.com/",
     "sfAccount" -> "re54891",
     "sfUser" -> "mouhamadkeita92",
-    "sfPassword" -> "Ousmane92.",
+    "sfPassword" -> "**********",
     "sfDatabase" -> "PEOPLE",
     "sfSchema" -> "PUBLIC",
     "sfRole" -> "ACCOUNTADMIN"

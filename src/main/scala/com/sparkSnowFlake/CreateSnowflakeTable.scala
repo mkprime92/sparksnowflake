@@ -6,7 +6,7 @@ object CreateSnowflakeTable extends App {
 
   val properties = new java.util.Properties()
   properties.put("user", "mouhamadkeita92")
-  properties.put("password", "Ousmane92.")
+  properties.put("password", "**********")
   properties.put("account", "re54891")
   properties.put("warehouse", "COMPUTE_WH")
   properties.put("db", "PEOPLE")
